@@ -22,12 +22,11 @@ const Board = (props) => {
                     id: i
                 })
             } else if (nextMove === 'O') {
-            console.log(squares)
                 dispatch({
                     type: 'SET_O',
                     id: i
                 })
-            } else if (winner) {alert('stop')}
+            } 
         }
         const winner = calculateWinner(squares);
         let status;
