@@ -62,8 +62,7 @@ const Board = (props) => {
 }
 
 const calculateWinner = (squares) => {
-    const deadHeat = Array.from(new Set(squares.map(s => s.value)))
-    if(deadHeat.indexOf(null) === -1){ return 'ничья'}
+
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -74,12 +73,15 @@ const calculateWinner = (squares) => {
       [0, 4, 8],
       [2, 4, 6],
     ];
+
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (squares[a].value  && squares[a].value === squares[b].value && squares[a].value === squares[c].value) {
             return squares[a].value
       }
     } 
+    const deadHeat = Array.from(new Set(squares.map(s => s.value)))
+    if(deadHeat.indexOf(null) === -1){ return 'ничья'}
     return null;
   }
 export default Board;
