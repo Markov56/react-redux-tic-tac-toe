@@ -6,7 +6,7 @@ const Board = (props) => {
     const dispatch = useDispatch();
     const nextMove = useSelector(state => state.boardState.nextMove)
     const squares = useSelector(state => state.boardState.squares)
-    console.log(squares)
+   
   
     let renderSquare = (i) => {
         return <Square id={i} onClick={ () => handleClick(i) }/>;
@@ -31,7 +31,9 @@ const Board = (props) => {
         const winner = calculateWinner(squares);
         let status;
 
-        if(winner) {
+        if(winner === 'ничья'){
+            status = 'Победила дружба'
+        }else if(winner) {
                 status = `Выиграл: ${winner}`
             } else { 
                 status = `Следующий ход: ${nextMove}`
@@ -54,11 +56,13 @@ const Board = (props) => {
                 {renderSquare(7)}
                 {renderSquare(8)}
             </div>
+            <button onClick={ () => dispatch({type: 'SET_NEW_GAME'})}>Новая игра</button>
         </div>
     )
 }
 
 const calculateWinner = (squares) => {
+
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -69,13 +73,15 @@ const calculateWinner = (squares) => {
       [0, 4, 8],
       [2, 4, 6],
     ];
+
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (squares[a].value  && squares[a].value === squares[b].value && squares[a].value === squares[c].value) {
             return squares[a].value
       }
-    }
+    } 
+    const deadHeat = Array.from(new Set(squares.map(s => s.value)))
+    if(deadHeat.indexOf(null) === -1){ return 'ничья'}
     return null;
   }
 export default Board;
-

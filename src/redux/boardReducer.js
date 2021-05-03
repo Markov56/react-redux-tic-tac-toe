@@ -1,18 +1,24 @@
 const SET_X = 'SET_X';
 const SET_O = 'SET_O';
+const SET_NEW_GAME = 'SET_NEW_GAME';
 
+ 
 let initialState = {
-    squares: [],
+    squares: [
+        {value: null, id: 0},
+        {value: null, id: 1},
+        {value: null, id: 2},
+        {value: null, id: 3},
+        {value: null, id: 4},
+        {value: null, id: 5},
+        {value: null, id: 6},
+        {value: null, id: 7},
+        {value: null, id: 8},
+    ],
     nextMove: 'X'
 };
 
-for(let i = 0; i<9; i++){
-    let squareItem = {
-        value: null,
-        id: i
-    }
-    initialState.squares.push(squareItem)
-}
+
 
 const boardReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -40,6 +46,24 @@ const boardReducer = (state = initialState, action) => {
                 }),
                 nextMove: 'X'
             }  
+
+        case SET_NEW_GAME: 
+                console.log(initialState)
+            return {...initialState,
+                squares: [
+                    {value: null, id: 0},
+                    {value: null, id: 1},
+                    {value: null, id: 2},
+                    {value: null, id: 3},
+                    {value: null, id: 4},
+                    {value: null, id: 5},
+                    {value: null, id: 6},
+                    {value: null, id: 7},
+                    {value: null, id: 8},
+                ]
+            }
+                
+            
        
         default:
             return state;
